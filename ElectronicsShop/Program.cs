@@ -44,10 +44,10 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var supportedCultures = new List<CultureInfo>
             {
-                new("ar-EG", false),
-                new("en-US",false)
+                new("ar", false),
+                new("en",false)
             };
-    var defaultCulture = new RequestCulture(culture: "ar-EG", uiCulture: "ar-EG");
+    var defaultCulture = new RequestCulture(culture: "ar", uiCulture: "ar");
     defaultCulture.Culture.NumberFormat.CurrencyGroupSeparator = ".";
     defaultCulture.Culture.NumberFormat.CurrencyDecimalSeparator = ".";
     defaultCulture.Culture.NumberFormat.NumberGroupSeparator = ".";

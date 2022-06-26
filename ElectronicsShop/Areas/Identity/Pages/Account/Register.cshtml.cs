@@ -71,6 +71,12 @@ namespace ElectronicsShop.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required, MaxLength(250)]
+            public string Name { get; set; }
+            [Required, MaxLength(250)]
+            public string Address { get; set; }
+
+            [Required] public DateTime Birthdate { get; set; } = DateTime.Now.AddYears(-18);
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -117,6 +123,9 @@ namespace ElectronicsShop.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.Address = Input.Address;
+                user.Name = Input.Name;
+                user.Birthdate = Input.Birthdate;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
