@@ -33,40 +33,40 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
 builder.Services.AddRazorPages();
 
 
-//builder.Services.AddControllersWithViews()
-//    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-//    .AddDataAnnotationsLocalization(options =>
-//    {
-//        options.DataAnnotationLocalizerProvider = (_, factory) =>
-//            factory.Create(typeof(SharedModelsResource));
-//    });
-//builder.Services.Configure<RequestLocalizationOptions>(options =>
-//{
-//    var supportedCultures = new List<CultureInfo>
-//            {
-//                new("ar-EG", false),
-//                new("en-US",false)
-//            };
-//    var defaultCulture = new RequestCulture(culture: "ar-EG", uiCulture: "ar-EG");
-//    defaultCulture.Culture.NumberFormat.CurrencyGroupSeparator = ".";
-//    defaultCulture.Culture.NumberFormat.CurrencyDecimalSeparator = ".";
-//    defaultCulture.Culture.NumberFormat.NumberGroupSeparator = ".";
-//    defaultCulture.Culture.NumberFormat.NumberDecimalSeparator = ".";
-//    defaultCulture.UICulture.NumberFormat.CurrencyGroupSeparator = ".";
-//    defaultCulture.UICulture.NumberFormat.CurrencyDecimalSeparator = ".";
-//    defaultCulture.UICulture.NumberFormat.NumberGroupSeparator = ".";
-//    defaultCulture.UICulture.NumberFormat.NumberDecimalSeparator = ".";
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization(options =>
+    {
+        options.DataAnnotationLocalizerProvider = (_, factory) =>
+            factory.Create(typeof(SharedModelsResource));
+    });
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new List<CultureInfo>
+            {
+                new("ar-EG", false),
+                new("en-US",false)
+            };
+    var defaultCulture = new RequestCulture(culture: "ar-EG", uiCulture: "ar-EG");
+    defaultCulture.Culture.NumberFormat.CurrencyGroupSeparator = ".";
+    defaultCulture.Culture.NumberFormat.CurrencyDecimalSeparator = ".";
+    defaultCulture.Culture.NumberFormat.NumberGroupSeparator = ".";
+    defaultCulture.Culture.NumberFormat.NumberDecimalSeparator = ".";
+    defaultCulture.UICulture.NumberFormat.CurrencyGroupSeparator = ".";
+    defaultCulture.UICulture.NumberFormat.CurrencyDecimalSeparator = ".";
+    defaultCulture.UICulture.NumberFormat.NumberGroupSeparator = ".";
+    defaultCulture.UICulture.NumberFormat.NumberDecimalSeparator = ".";
 
-//    options.DefaultRequestCulture = defaultCulture;
-//    options.SupportedCultures = supportedCultures;
-//    options.SupportedUICultures = supportedCultures;
-//    options.RequestCultureProviders = new List<IRequestCultureProvider>
-//            {
-//                new QueryStringRequestCultureProvider(),
-//                new CookieRequestCultureProvider(),
-//                new AcceptLanguageHeaderRequestCultureProvider()
-//            };
-//});
+    options.DefaultRequestCulture = defaultCulture;
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+    options.RequestCultureProviders = new List<IRequestCultureProvider>
+            {
+                new QueryStringRequestCultureProvider(),
+                new CookieRequestCultureProvider(),
+                new AcceptLanguageHeaderRequestCultureProvider()
+            };
+});
 
 var app = builder.Build();
 
@@ -103,7 +103,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//app.UseRequestLocalization(service.GetService<IOptions<RequestLocalizationOptions>>()?.Value!);
+app.UseRequestLocalization(service.GetService<IOptions<RequestLocalizationOptions>>()?.Value!);
 
 app.UseAuthentication();
 app.UseAuthorization();
