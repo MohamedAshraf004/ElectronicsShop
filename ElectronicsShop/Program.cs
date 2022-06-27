@@ -20,19 +20,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-#region DI
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<IDbInitializerRepository, DbInitializerRepository>();
-
-
-
-#endregion
 
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
-
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddControllersWithViews()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization(options =>
@@ -43,30 +36,32 @@ builder.Services.AddControllersWithViews()
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var supportedCultures = new List<CultureInfo>
-            {
-                new("ar", false),
-                new("en",false)
-            };
-    var defaultCulture = new RequestCulture(culture: "ar", uiCulture: "ar");
-    defaultCulture.Culture.NumberFormat.CurrencyGroupSeparator = ".";
-    defaultCulture.Culture.NumberFormat.CurrencyDecimalSeparator = ".";
-    defaultCulture.Culture.NumberFormat.NumberGroupSeparator = ".";
-    defaultCulture.Culture.NumberFormat.NumberDecimalSeparator = ".";
-    defaultCulture.UICulture.NumberFormat.CurrencyGroupSeparator = ".";
-    defaultCulture.UICulture.NumberFormat.CurrencyDecimalSeparator = ".";
-    defaultCulture.UICulture.NumberFormat.NumberGroupSeparator = ".";
-    defaultCulture.UICulture.NumberFormat.NumberDecimalSeparator = ".";
-
+    {
+        new("ar", false),
+        new("en",false)
+    };
+    var defaultCulture = new RequestCulture(culture: "en", uiCulture: "en");
+    
     options.DefaultRequestCulture = defaultCulture;
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
     options.RequestCultureProviders = new List<IRequestCultureProvider>
-            {
-                new QueryStringRequestCultureProvider(),
-                new CookieRequestCultureProvider(),
-                new AcceptLanguageHeaderRequestCultureProvider()
-            };
+    {
+        new QueryStringRequestCultureProvider(),
+        new CookieRequestCultureProvider(),
+        new AcceptLanguageHeaderRequestCultureProvider()
+    };
 });
+
+#region DI
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IDbInitializerRepository, DbInitializerRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+
+
+#endregion
+
 
 var app = builder.Build();
 
