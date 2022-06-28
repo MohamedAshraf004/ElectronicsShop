@@ -29,19 +29,6 @@ public class ApplicationDbContext : IdentityDbContext<AppUser>
                 new() { Id = 3, CategoryName = "Sound Systems" }
             });
 
-        builder.Entity<ProductDiscount>(entity =>
-        {
-            entity.HasOne<Product>()
-                .WithMany()
-                .HasForeignKey(x => x.ProductId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            entity.HasOne<Discount>()
-                .WithMany()
-                .HasForeignKey(x => x.DiscountId)
-                .OnDelete(DeleteBehavior.NoAction);
-        });
-
         base.OnModelCreating(builder);
     }
 }

@@ -4,22 +4,20 @@ using ElectronicsShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ElectronicsShop.Data.Migrations
+namespace ElectronicsShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220626223444_InitDb")]
-    partial class InitDb
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -343,9 +341,6 @@ namespace ElectronicsShop.Data.Migrations
                     b.Property<int>("DiscountId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DiscountId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("InsertBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -353,9 +348,6 @@ namespace ElectronicsShop.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductId1")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdateBy")
@@ -368,11 +360,7 @@ namespace ElectronicsShop.Data.Migrations
 
                     b.HasIndex("DiscountId");
 
-                    b.HasIndex("DiscountId1");
-
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("ProductId1");
 
                     b.ToTable("ProductDiscounts");
                 });
@@ -549,25 +537,17 @@ namespace ElectronicsShop.Data.Migrations
 
             modelBuilder.Entity("ElectronicsShop.Models.ProductDiscount", b =>
                 {
-                    b.HasOne("ElectronicsShop.Models.Discount", null)
-                        .WithMany()
-                        .HasForeignKey("DiscountId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("ElectronicsShop.Models.Discount", "Discount")
                         .WithMany("ProductDiscount")
-                        .HasForeignKey("DiscountId1");
-
-                    b.HasOne("ElectronicsShop.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("DiscountId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ElectronicsShop.Models.Product", "Product")
                         .WithMany("ProductDiscount")
-                        .HasForeignKey("ProductId1");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Discount");
 

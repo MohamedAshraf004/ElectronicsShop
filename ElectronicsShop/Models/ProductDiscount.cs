@@ -13,7 +13,7 @@ public class ProductDiscount : IBaseEntity
 
     public int ProductId { get; set; }
     [ForeignKey(nameof(ProductId))]
-    [InverseProperty(nameof(Models.Discount.ProductDiscount))]
+    [InverseProperty(nameof(Models.Product.ProductDiscount))]
     public Product Product { get; set; }
 
     public int DiscountId { get; set; }
