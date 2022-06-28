@@ -71,12 +71,12 @@ namespace ElectronicsShop.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required, MaxLength(250)]
+            [Required, MaxLength(250),Display(Name = "Name")]
             public string Name { get; set; }
-            [Required, MaxLength(250)]
+            [Required, MaxLength(250), Display(Name = "Address")]
             public string Address { get; set; }
 
-            [Required] public DateTime Birthdate { get; set; } = DateTime.Now.AddYears(-18);
+            [Required, Display(Name = "BirthDate")] public DateTime Birthdate { get; set; } = DateTime.Now.AddYears(-18);
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.

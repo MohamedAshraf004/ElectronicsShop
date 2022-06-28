@@ -1,5 +1,20 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IViewLocalizer localizer
+@{
+    string directory = "";
+    string direction = "ltr";
+    @if (CultureInfo.CurrentCulture.Name.StartsWith("ar"))
+    {
+        // arabic links {rtl}
+        directory = "-rtl";
+        direction = "rtl";
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="@direction">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,7 +40,10 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                       
                     </ul>
+                    <partial name="_SelectLanguagePartial" />
+
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -44,6 +62,9 @@
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 

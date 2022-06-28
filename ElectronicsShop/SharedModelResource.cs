@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ElectronicsShop
 {
-    public class SharedModelsResource
+    public class SharedModelResource
     {
 
     }

@@ -31,7 +31,7 @@ builder.Services.AddControllersWithViews()
     .AddDataAnnotationsLocalization(options =>
     {
         options.DataAnnotationLocalizerProvider = (_, factory) =>
-            factory.Create(typeof(SharedModelsResource));
+            factory.Create(typeof(SharedModelResource));
     });
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -103,6 +103,7 @@ app.UseRequestLocalization(service.GetService<IOptions<RequestLocalizationOption
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapDefaultControllerRoute();
 app.MapRazorPages();
 
 app.Run();
